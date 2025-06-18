@@ -28,26 +28,10 @@ const CustomTooltip = ({ active, payload }: any) => {
   return null;
 };
 
-const CustomLegend = ({ payload }: any) => {
-  return (
-    <div className="flex flex-wrap justify-center gap-3 mt-6">
-      {payload.map((entry: any, index: number) => (
-        <div key={index} className="flex items-center gap-2">
-          <div 
-            className="w-3 h-3 rounded-full" 
-            style={{ backgroundColor: entry.color }}
-          />
-          <span className="text-sm text-gray-700">{entry.value}</span>
-        </div>
-      ))}
-    </div>
-  );
-};
-
 const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 p-4">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-2 mb-4">
@@ -65,29 +49,30 @@ const Index = () => {
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-6">
-          {/* Main Chart */}
-          <div className="lg:col-span-2">
+        {/* Main Chart with Legend */}
+        <div className="grid lg:grid-cols-4 gap-8">
+          {/* Pie Chart */}
+          <div className="lg:col-span-3">
             <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle className="text-2xl font-bold text-gray-800">
+                <CardTitle className="text-3xl font-bold text-gray-800">
                   Top DevX Challenges
                 </CardTitle>
-                <CardDescription className="text-gray-600">
+                <CardDescription className="text-gray-600 text-lg">
                   Percentage breakdown of the most reported developer experience issues
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="h-96">
+                <div className="h-[600px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                       <Pie
                         data={surveyData}
                         cx="50%"
                         cy="50%"
-                        outerRadius={120}
-                        innerRadius={40}
-                        paddingAngle={2}
+                        outerRadius={200}
+                        innerRadius={60}
+                        paddingAngle={3}
                         dataKey="value"
                         animationBegin={0}
                         animationDuration={1000}
@@ -96,12 +81,13 @@ const Index = () => {
                           <Cell 
                             key={`cell-${index}`} 
                             fill={entry.color}
-                            className="hover:opacity-80 transition-opacity cursor-pointer"
+                            className="hover:opacity-80 transition-opacity cursor-pointer drop-shadow-lg"
+                            stroke="white"
+                            strokeWidth={2}
                           />
                         ))}
                       </Pie>
                       <Tooltip content={<CustomTooltip />} />
-                      <Legend content={<CustomLegend />} />
                     </PieChart>
                   </ResponsiveContainer>
                 </div>
@@ -109,105 +95,35 @@ const Index = () => {
             </Card>
           </div>
 
-          {/* Stats Sidebar */}
-          <div className="space-y-6">
-            <Card className="shadow-lg border-0 bg-gradient-to-br from-blue-500 to-blue-600 text-white">
+          {/* Right Side Legend */}
+          <div className="space-y-4">
+            <Card className="shadow-lg border-0 bg-white/90 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle className="text-white">Key Insights</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div>
-                    <div className="text-3xl font-bold">52%</div>
-                    <div className="text-blue-100">Infrastructure & Setup Issues</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold">18%</div>
-                    <div className="text-blue-100">Tool Integration Problems</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold">15%</div>
-                    <div className="text-blue-100">Process-Related Challenges</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Top Issues */}
-            <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-lg font-bold text-gray-800">
-                  Top Issues by Category
+                <CardTitle className="text-xl font-bold text-gray-800">
+                  Categories
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3">
-                {surveyData.slice(0, 3).map((item, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+              <CardContent className="space-y-4">
+                {surveyData.map((item, index) => (
+                  <div key={index} className="flex items-center justify-between p-4 rounded-lg bg-gray-50/80 hover:bg-gray-100/80 transition-colors">
                     <div className="flex items-center gap-3">
                       <div 
-                        className="w-4 h-4 rounded-full" 
+                        className="w-5 h-5 rounded-full shadow-md" 
                         style={{ backgroundColor: item.color }}
                       />
-                      <span className="font-medium text-gray-700">{item.name}</span>
+                      <div>
+                        <span className="font-semibold text-gray-700 block">{item.name}</span>
+                        <span className="text-sm text-gray-500">{item.description}</span>
+                      </div>
                     </div>
-                    <Badge variant="secondary" className="font-bold">
+                    <Badge variant="secondary" className="font-bold text-lg px-3 py-1">
                       {item.value}%
                     </Badge>
                   </div>
                 ))}
               </CardContent>
             </Card>
-
-            {/* Survey Details */}
-            <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-lg font-bold text-gray-800">
-                  Survey Details
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2 text-sm text-gray-600">
-                <div className="flex justify-between">
-                  <span>Survey Period:</span>
-                  <span className="font-medium">Q4 2024</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Participants:</span>
-                  <span className="font-medium">1,247 developers</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Response Rate:</span>
-                  <span className="font-medium">87%</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Companies:</span>
-                  <span className="font-medium">156 organizations</span>
-                </div>
-              </CardContent>
-            </Card>
           </div>
-        </div>
-
-        {/* Bottom Section */}
-        <div className="mt-8 text-center">
-          <Card className="shadow-lg border-0 bg-gradient-to-r from-purple-500 to-pink-500 text-white">
-            <CardContent className="p-6">
-              <h3 className="text-xl font-bold mb-2">Ready to Improve Your DevX?</h3>
-              <p className="text-purple-100 mb-4">
-                Join thousands of developers who have streamlined their workflow
-              </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Badge className="bg-white text-purple-600 hover:bg-gray-100">
-                  Faster Onboarding
-                </Badge>
-                <Badge className="bg-white text-purple-600 hover:bg-gray-100">
-                  Automated Setup
-                </Badge>
-                <Badge className="bg-white text-purple-600 hover:bg-gray-100">
-                  Better Tools
-                </Badge>
-              </div>
-            </CardContent>
-          </Card>
         </div>
       </div>
     </div>
