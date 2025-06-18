@@ -51,34 +51,10 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 p-4">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <TrendingUp className="w-8 h-8 text-blue-600" />
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Developer Experience Survey 2024
-            </h1>
-          </div>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Understanding the biggest challenges developers face in their daily workflow
-          </p>
-          <div className="flex items-center justify-center gap-2 mt-4">
-            <Users className="w-5 h-5 text-gray-500" />
-            <span className="text-gray-500">Based on responses from 1,247 developers</span>
-          </div>
-        </div>
-
         {/* Main Chart */}
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm">
-            <CardHeader className="relative">
-              <CardTitle className="text-3xl font-bold text-gray-800">
-                Top DevX Challenges
-              </CardTitle>
-              <CardDescription className="text-gray-600 text-lg">
-                Percentage breakdown of the most reported developer experience issues
-              </CardDescription>
-              
+            <CardHeader className="relative pb-2">
               {/* Categories in top right */}
               <div className="absolute top-6 right-6 space-y-2 max-w-xs">
                 {surveyData.map((item, index) => (
@@ -88,45 +64,47 @@ const Index = () => {
                         className="w-4 h-4 rounded-full shadow-md" 
                         style={{ backgroundColor: item.color }}
                       />
-                      <span className="font-semibold text-gray-700 text-sm">{item.name}</span>
+                      <span className="font-semibold text-gray-700 text-base">{item.name}</span>
                     </div>
-                    <Badge variant="secondary" className="font-bold text-sm px-2 py-1">
+                    <Badge variant="secondary" className="font-bold text-base px-3 py-1">
                       {item.value}%
                     </Badge>
                   </div>
                 ))}
               </div>
             </CardHeader>
-            <CardContent>
-              <div className="h-[600px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={surveyData}
-                      cx="50%"
-                      cy="50%"
-                      labelLine={false}
-                      label={renderCustomizedLabel}
-                      outerRadius={200}
-                      innerRadius={60}
-                      paddingAngle={3}
-                      dataKey="value"
-                      animationBegin={0}
-                      animationDuration={1000}
-                    >
-                      {surveyData.map((entry, index) => (
-                        <Cell 
-                          key={`cell-${index}`} 
-                          fill={entry.color}
-                          className="hover:opacity-80 transition-opacity cursor-pointer drop-shadow-lg"
-                          stroke="white"
-                          strokeWidth={2}
-                        />
-                      ))}
-                    </Pie>
-                    <Tooltip content={<CustomTooltip />} />
-                  </PieChart>
-                </ResponsiveContainer>
+            <CardContent className="pt-0">
+              <div className="flex items-center justify-start">
+                <div className="h-[700px] w-[700px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={surveyData}
+                        cx="50%"
+                        cy="50%"
+                        labelLine={false}
+                        label={renderCustomizedLabel}
+                        outerRadius={250}
+                        innerRadius={80}
+                        paddingAngle={3}
+                        dataKey="value"
+                        animationBegin={0}
+                        animationDuration={1000}
+                      >
+                        {surveyData.map((entry, index) => (
+                          <Cell 
+                            key={`cell-${index}`} 
+                            fill={entry.color}
+                            className="hover:opacity-80 transition-opacity cursor-pointer drop-shadow-lg"
+                            stroke="white"
+                            strokeWidth={2}
+                          />
+                        ))}
+                      </Pie>
+                      <Tooltip content={<CustomTooltip />} />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
               </div>
             </CardContent>
           </Card>
