@@ -1,9 +1,7 @@
-
 import React from 'react';
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Users, TrendingUp } from 'lucide-react';
 
 const surveyData = [
   { name: 'Setup & Onboarding', value: 28, color: '#FF6B6B' },
@@ -55,8 +53,8 @@ const Index = () => {
         <div className="max-w-6xl mx-auto">
           <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm">
             <CardHeader className="relative pb-2">
-              {/* Categories in top right */}
-              <div className="absolute top-6 right-6 space-y-2 max-w-xs">
+              {/* Categories closer to pie chart */}
+              <div className="absolute top-6 right-4 space-y-2 max-w-xs">
                 {surveyData.map((item, index) => (
                   <div key={index} className="flex items-center justify-between p-2 rounded-lg bg-gray-50/80">
                     <div className="flex items-center gap-2">
@@ -73,7 +71,7 @@ const Index = () => {
                 ))}
               </div>
             </CardHeader>
-            <CardContent className="pt-0">
+            <CardContent className="pt-0 pl-2">
               <div className="flex items-center justify-start">
                 <div className="h-[700px] w-[700px]">
                   <ResponsiveContainer width="100%" height="100%">
