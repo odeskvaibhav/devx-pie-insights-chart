@@ -54,29 +54,31 @@ const Index = () => {
                 <ResponsiveContainer width="75%" height="100%">
                   <BarChart
                     data={surveyData}
-                    layout="vertical"
-                    margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
+                    margin={{ top: 20, right: 30, left: 40, bottom: 80 }}
                   >
                     <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                     <XAxis 
+                      type="category" 
+                      dataKey="name" 
+                      tick={{ fontSize: 12, fill: '#666' }}
+                      axisLine={{ stroke: '#e0e0e0' }}
+                      angle={-45}
+                      textAnchor="end"
+                      height={100}
+                      interval={0}
+                      label={{ value: 'Categories', position: 'insideBottom', offset: -10 }}
+                    />
+                    <YAxis 
                       type="number" 
                       domain={[0, 50]} 
                       tick={{ fontSize: 14, fill: '#666' }}
                       axisLine={{ stroke: '#e0e0e0' }}
-                      label={{ value: 'Number of Users (Total: 50)', position: 'insideBottom', offset: -5 }}
-                    />
-                    <YAxis 
-                      type="category" 
-                      dataKey="name" 
-                      tick={{ fontSize: 14, fill: '#666' }}
-                      axisLine={{ stroke: '#e0e0e0' }}
-                      width={250}
-                      label={{ value: 'Categories', angle: -90, position: 'insideLeft' }}
+                      label={{ value: 'Number of Users (Total: 50)', angle: -90, position: 'insideLeft' }}
                     />
                     <Tooltip content={<CustomTooltip />} />
                     <Bar 
                       dataKey="value" 
-                      radius={[0, 8, 8, 0]}
+                      radius={[8, 8, 0, 0]}
                       stroke="white"
                       strokeWidth={2}
                     >
