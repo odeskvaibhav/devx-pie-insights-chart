@@ -1,16 +1,15 @@
 
 import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
 const surveyData = [
-  { name: 'Setup & Onboarding', value: 28, color: '#FF6B6B' },
-  { name: 'Infrastructure Maintenance', value: 24, color: '#4ECDC4' },
-  { name: 'Tool Integration', value: 18, color: '#45B7D1' },
-  { name: 'Code Review Process', value: 15, color: '#96CEB4' },
-  { name: 'Testing & Debugging', value: 10, color: '#FFEAA7' },
-  { name: 'Documentation', value: 5, color: '#DDA0DD' }
+  { name: 'Setup & Onboarding', value: 15, color: '#FF6B6B' },
+  { name: 'Documentation', value: 15, color: '#4ECDC4' },
+  { name: 'Test Infrastructure', value: 25, color: '#45B7D1' },
+  { name: 'Pre-Production Performance Validation', value: 20, color: '#96CEB4' },
+  { name: 'Distribution & Deployment', value: 10, color: '#FFEAA7' }
 ];
 
 const CustomTooltip = ({ active, payload, label }: any) => {
@@ -18,7 +17,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
     return (
       <div className="bg-white p-4 rounded-lg shadow-lg border border-gray-200 max-w-xs">
         <p className="font-semibold text-gray-800 mb-1">{label}</p>
-        <p className="text-2xl font-bold text-gray-900">{payload[0].value}%</p>
+        <p className="text-2xl font-bold text-gray-900">{payload[0].value} users</p>
       </div>
     );
   }
@@ -44,7 +43,7 @@ const Index = () => {
                       <span className="font-semibold text-gray-700 text-base">{item.name}</span>
                     </div>
                     <Badge variant="secondary" className="font-bold text-base px-3 py-1">
-                      {item.value}%
+                      {item.value} users
                     </Badge>
                   </div>
                 ))}
@@ -55,22 +54,24 @@ const Index = () => {
                 <ResponsiveContainer width="75%" height="100%">
                   <BarChart
                     data={surveyData}
-                    layout="horizontal"
+                    layout="vertical"
                     margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
                   >
                     <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                     <XAxis 
                       type="number" 
-                      domain={[0, 30]} 
+                      domain={[0, 50]} 
                       tick={{ fontSize: 14, fill: '#666' }}
                       axisLine={{ stroke: '#e0e0e0' }}
+                      label={{ value: 'Number of Users (Total: 50)', position: 'insideBottom', offset: -5 }}
                     />
                     <YAxis 
                       type="category" 
                       dataKey="name" 
                       tick={{ fontSize: 14, fill: '#666' }}
                       axisLine={{ stroke: '#e0e0e0' }}
-                      width={200}
+                      width={250}
+                      label={{ value: 'Categories', angle: -90, position: 'insideLeft' }}
                     />
                     <Tooltip content={<CustomTooltip />} />
                     <Bar 
@@ -80,8 +81,8 @@ const Index = () => {
                       strokeWidth={2}
                     >
                       {surveyData.map((entry, index) => (
-                        <Bar 
-                          key={`bar-${index}`} 
+                        <Cell 
+                          key={`cell-${index}`} 
                           fill={entry.color}
                           className="hover:opacity-80 transition-opacity cursor-pointer drop-shadow-lg"
                         />
