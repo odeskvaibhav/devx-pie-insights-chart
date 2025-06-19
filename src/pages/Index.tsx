@@ -2,7 +2,6 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 
 const surveyData = [
   { name: 'Setup & Onboarding', value: 15, color: '#FF6B6B' },
@@ -31,23 +30,6 @@ const Index = () => {
         <div className="max-w-6xl mx-auto">
           <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm">
             <CardHeader className="relative pb-6">
-              {/* Categories legend */}
-              <div className="absolute top-6 right-4 space-y-2 max-w-xs">
-                {surveyData.map((item, index) => (
-                  <div key={index} className="flex items-center justify-between p-2 rounded-lg bg-gray-50/80">
-                    <div className="flex items-center gap-2">
-                      <div 
-                        className="w-4 h-4 rounded-full shadow-md" 
-                        style={{ backgroundColor: item.color }}
-                      />
-                      <span className="font-semibold text-gray-700 text-base">{item.name}</span>
-                    </div>
-                    <Badge variant="secondary" className="font-bold text-base px-3 py-1">
-                      {item.value} users
-                    </Badge>
-                  </div>
-                ))}
-              </div>
             </CardHeader>
             <CardContent className="pt-0 pl-8">
               <div className="h-[600px] w-full">
